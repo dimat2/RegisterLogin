@@ -2,7 +2,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                Register
+                Login
             </div>
             <div class="card-body">
                 <div class="col-md-6 offset-md-3">
@@ -13,11 +13,6 @@
                             </ul>
                         </div>
                         <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" placeholder="Neved" v-model="name">
-                        </div>
-
-                        <div class="form-group">
                             <label>Username</label>
                             <input type="text" class="form-control" placeholder="Felhasználónév" v-model="email">
                         </div>
@@ -27,12 +22,7 @@
                             <input type="password" class="form-control" placeholder="Jelszó" v-model="password">
                         </div>
 
-                        <div class="form-group">
-                            <label>Password again</label>
-                            <input type="password" class="form-control" placeholder="Jelszó ismét" v-model="passwordAgain">
-                        </div>
-
-                        <button class="btn btn-success">Register</button>
+                        <button class="btn btn-success">Login</button>
                     </form>
                 </div>
             </div>
@@ -42,13 +32,11 @@
 
 <script>
     export default {
-        name: "register",
+        name: "login",
         data() {
             return {
                 email: "",
-                name: "",
                 password: "",
-                passwordAgain: "",
                 errors: []
             }
         },
@@ -56,34 +44,21 @@
             onSubmit() {
                 this.errors = []
 
-                if (!this.name) {
-                    this.errors.push("Add meg a neved!")
-                }
-
                 if (!this.email) {
-                    this.errors.push("Add meg a felhasználóneved!")
+                    this.errors.push("Add meg az email címedet!")
                 }
 
                 if (!this.password) {
                     this.errors.push("Add meg a jelszavad!")
                 }
 
-                if (!this.name) {
-                    this.errors.push("Add meg ismét a jeszavad!")
-                }
-
-                if (this.password !== this.passwordAgain) {
-                    this.errors.push("A jelszavak nem egyeznek!")
-                }
-
-                if (this.errors.length == 0) {
+                if (!this.errors.length) {
                     const data = {
-                        name: this.name,
                         email: this.email,
                         password: this.password
                     }
 
-                    axios.post("http://localhost/LaraVue/public/auth/register", data)
+                    axios.post("http://localhost/LaraVue/public/auth/login", data)
                         .then(res => {
                             this.$store.state.user = res.data
                             this.$router.push("/")

@@ -12,10 +12,13 @@ const router = new VueRouter({
 
 Vue.component("spinner", require("vue-simple-spinner"))
 
+import store from './store'
+
 import App from './App.vue'
 
 new Vue({
     router,
+    store,
     render: h => h(App)
 }).$mount("#app")
 

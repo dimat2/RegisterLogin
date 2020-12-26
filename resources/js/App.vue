@@ -1,10 +1,10 @@
 <template>
     <div>
-        <navbar :app="this" class="mb-2"></navbar>
+        <navbar class="mb-2"></navbar>
 
         <spinner v-if="loading"></spinner>
         <div v-else-if="initiated">
-            <router-view :app="this"></router-view>
+            <router-view></router-view>
         </div>
     </div>
 </template>
@@ -19,12 +19,8 @@
         },
         data() {
             return {
-                user: null,
                 loading: false,
-                initiated: false,
-                req: axios.create({
-                    baseURL: process.env.MIX_APP_URL
-                })
+                initiated: false
             }
         },
         mounted() {
@@ -34,12 +30,12 @@
             init() {
                 this.loading = true
 
-                this.req.get("auth/init")
+                axios.get("http://localhost/LaraVue/public/auth/init")
                     .then(res => {
-                        this.user = res.data.user
+                        this.$store.state.user = res.data.user
                         this.loading = false
                         this.initiated = true
-                })
+                    })
             }
         }
     }

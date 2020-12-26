@@ -42,7 +42,7 @@ class AppController extends Controller
 
         Auth::login($user);
 
-        return response()->json(["user" => $user], 200);
+        return response()->json($user, 200);
     }
 
     public function logout()

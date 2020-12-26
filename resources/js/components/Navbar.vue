@@ -16,14 +16,16 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ app.user ? user.name : 'Account' }}
+                            {{ $store.state.user != null ? $store.state.user.name : 'Account' }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <div v-if="!app.user">
+                            <div v-if="$store.state.user == null">
                                 <router-link to="/login" class="dropdown-item">Login</router-link>
                                 <router-link to="/register" class="dropdown-item">Register</router-link>
                             </div>
-                            <div class="dropdown-divider"></div>
+                            <div v-else>
+                                <button @click="logout" class="dropdown-item">Logout</button>
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -38,19 +40,14 @@
 <script>
     export default {
         name: "navbar",
-        props: ["app"],
-        data() {
-            return {
-
-            }
-        },
         methods: {
             logout() {
-                this.app.req.post("auth/logout")
+                axios.post("http://localhost/LaraVue/public/auth/logout")
                     .then(() => {
-                        this.app.user = null
+                        this.$store.state.user = null
                         this.$router.push("/login")
-                })
+                    })
+                    .catch((err) => console.err(err))
             }
         }
     }
