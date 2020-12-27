@@ -60,7 +60,7 @@
 
                     axios.post("http://localhost/LaraVue/public/auth/login", data)
                         .then(res => {
-                            this.$store.state.user = res.data
+                            this.$store.commit("setUser", res.data)
                             this.$router.push("/")
                         })
                 }

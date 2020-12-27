@@ -16,7 +16,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ $store.state.user != null ? $store.state.user.name : 'Account' }}
+                            {{ $store.state.user != null ? $store.state.user.name : "Account" }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <div v-if="$store.state.user == null">
@@ -44,7 +44,7 @@
             logout() {
                 axios.post("http://localhost/LaraVue/public/auth/logout")
                     .then(() => {
-                        this.$store.state.user = null
+                        this.$store.commit("setUser", null)
                         this.$router.push("/login")
                     })
                     .catch((err) => console.err(err))

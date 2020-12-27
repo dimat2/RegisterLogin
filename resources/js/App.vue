@@ -32,7 +32,7 @@
 
                 axios.get("http://localhost/LaraVue/public/auth/init")
                     .then(res => {
-                        this.$store.state.user = res.data.user
+                        this.$store.commit("setUser", res.data.user)
                         this.loading = false
                         this.initiated = true
                     })

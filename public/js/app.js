@@ -1941,7 +1941,8 @@ __webpack_require__.r(__webpack_exports__);
 
       this.loading = true;
       axios.get("http://localhost/LaraVue/public/auth/init").then(function (res) {
-        _this.$store.state.user = res.data.user;
+        _this.$store.commit("setUser", res.data.user);
+
         _this.loading = false;
         _this.initiated = true;
       });
@@ -2006,7 +2007,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.post("http://localhost/LaraVue/public/auth/logout").then(function () {
-        _this.$store.state.user = null;
+        _this.$store.commit("setUser", null);
 
         _this.$router.push("/login");
       })["catch"](function (err) {
@@ -2109,7 +2110,7 @@ __webpack_require__.r(__webpack_exports__);
           password: this.password
         };
         axios.post("http://localhost/LaraVue/public/auth/login", data).then(function (res) {
-          _this.$store.state.user = res.data;
+          _this.$store.commit("setUser", res.data);
 
           _this.$router.push("/");
         });
@@ -55984,7 +55985,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     user: null
   },
   getters: {},
-  mutations: {},
+  mutations: {
+    setUser: function setUser(state, user) {
+      return state.user = user;
+    }
+  },
   actions: {},
   modules: {}
 }));
